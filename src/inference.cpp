@@ -32,7 +32,7 @@ Rcpp::List inference(arma::mat &X, arma::colvec &Y, arma::mat &Y00, arma::mat &Y
   
   
   //get the weights
-  w_unit = unit_weights(Y00, Y10, dzeta, rho, tol, "SDID");
+  w_unit = unit_weights(Y00, Y10, N1, dzeta, rho, tol, "SDID");
   w_time = time_weights(Y00, Y01, dzeta, rho, tol, "SDID");
   
   

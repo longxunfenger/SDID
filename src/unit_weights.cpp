@@ -7,6 +7,7 @@
 //' The function find optimal unit weights
 //' @param Y00 - T0 x N0 matrix of control unit outcomes before the treatment
 //' @param Y10 - T0 x N - N0 matrix of treated unit outcomes before the treatment
+//, @param N_treated_units - the number of treated units
 //' @param dzeta - Ridge penalty parameter
 //' @param rho - parameter used in ADMM
 //' @param tol - Convergence tolerance for ADMM algorithm
