@@ -22,8 +22,10 @@ estimate <- function(df, covariates, treatment_time, treated_units, weight_type 
   dzeta <-  var(df$Y)
   rho <-  5
   tol <-  1e-6
+  n_treated_units <- length(treated_units)
   w_t <- time_weights(data$Y00, data$Y01, dzeta, rho, tol, weight_type)
-  w_i <- unit_weights(data$Y00, data$Y10, dzeta, rho, tol, weight_type)
+  w_i <- unit_weights(data$Y00, data$Y10_mean, n_treated_units, dzeta, rho,
+  tol, weight_type)
   
   #get point estimate
   est <- att(data$X, data$Y, -1, w_i, w_t)

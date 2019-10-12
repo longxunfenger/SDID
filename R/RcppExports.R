@@ -77,7 +77,7 @@ time_weights <- function(Y00, Y01, dzeta, rho, tol, weight_type) {
 #' @param weight_type - type of weight to be computed. Supported options are "SDID" and "Kernel"
 #' @return N x 1 matrix of time weights for the estimation
 #' @export
-unit_weights <- function(Y00, Y10, dzeta, rho, tol, weight_type) {
-    .Call(`_sdid_unit_weights`, Y00, Y10, dzeta, rho, tol, weight_type)
+unit_weights <- function(Y00, Y10, N_treated_units, dzeta, rho, tol, weight_type) {
+    .Call(`_sdid_unit_weights`, Y00, Y10, N_treated_units, dzeta, rho, tol, weight_type)
 }
 

@@ -86,18 +86,19 @@ BEGIN_RCPP
 END_RCPP
 }
 // unit_weights
-arma::mat unit_weights(arma::mat& Y00, arma::mat& Y10, double dzeta, double rho, double tol, std::string weight_type);
-RcppExport SEXP _sdid_unit_weights(SEXP Y00SEXP, SEXP Y10SEXP, SEXP dzetaSEXP, SEXP rhoSEXP, SEXP tolSEXP, SEXP weight_typeSEXP) {
+arma::mat unit_weights(arma::mat& Y00, arma::mat& Y10, int N_treated_units, double dzeta, double rho, double tol, std::string weight_type);
+RcppExport SEXP _sdid_unit_weights(SEXP Y00SEXP, SEXP Y10SEXP, SEXP N_treated_unitsSEXP, SEXP dzetaSEXP, SEXP rhoSEXP, SEXP tolSEXP, SEXP weight_typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat& >::type Y00(Y00SEXP);
     Rcpp::traits::input_parameter< arma::mat& >::type Y10(Y10SEXP);
+    Rcpp::traits::input_parameter< int >::type N_treated_units(N_treated_unitsSEXP);
     Rcpp::traits::input_parameter< double >::type dzeta(dzetaSEXP);
     Rcpp::traits::input_parameter< double >::type rho(rhoSEXP);
     Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< std::string >::type weight_type(weight_typeSEXP);
-    rcpp_result_gen = Rcpp::wrap(unit_weights(Y00, Y10, dzeta, rho, tol, weight_type));
+    rcpp_result_gen = Rcpp::wrap(unit_weights(Y00, Y10, N_treated_units, dzeta, rho, tol, weight_type));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -108,7 +109,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_sdid_att", (DL_FUNC) &_sdid_att, 5},
     {"_sdid_inference", (DL_FUNC) &_sdid_inference, 8},
     {"_sdid_time_weights", (DL_FUNC) &_sdid_time_weights, 6},
-    {"_sdid_unit_weights", (DL_FUNC) &_sdid_unit_weights, 6},
+    {"_sdid_unit_weights", (DL_FUNC) &_sdid_unit_weights, 7},
     {NULL, NULL, 0}
 };
 

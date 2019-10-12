@@ -14,10 +14,11 @@
 //' @return N x 1 matrix of time weights for the estimation
 //' @export
 // [[Rcpp::export]]
-arma::mat unit_weights(arma::mat &Y00, arma::mat &Y10, double dzeta, double rho, double tol, std::string weight_type)
+arma::mat unit_weights(arma::mat &Y00, arma::mat &Y10, int N_treated_units, double dzeta, double rho, double tol, std::string weight_type)
 {
   int T0 = Y00.n_rows;
   int N = Y00.n_cols + 1;
+  int N_units = Y00.n_cols + N_treated_units;
   arma::mat unit_weights(N - 1, 1);
   
   arma::mat eye_mat(N - 1, N - 1);
@@ -38,9 +39,10 @@ arma::mat unit_weights(arma::mat &Y00, arma::mat &Y10, double dzeta, double rho,
     //unit_weights = admm_solver(V, dvec, rho, 10000, 1e-8);
     
     
-    arma::mat result(N, 1);
+    arma::mat result(N_units, 1);
+    arma::mat treated_weights(N_treated_units, 1);
     result.submat(0, 0, N - 2, 0) = admm_solver(V, dvec, rho, 10000, 1e-8);
-    result(N - 1, 0) = 1/(N - (N - 1));
+    result.submat(N - 1, 0, N_units - 1, 0) = treated_weights.fill(1/N_treated_units);
     
     return result;
     //return unit_weights;
