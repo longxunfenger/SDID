@@ -76,8 +76,11 @@ prepare_data <- function(df, covariates, treatment_time, treated_units)
   Y10 <- df[(df$time < treatment_time) & (df$unit %in% treated_units),]$Y;
   Y10 <- matrix(Y10, ncol = T0, byrow = TRUE)
   Y10 <- t(Y10)
+  Y10_mean <- matrix(apply(Y10, 1, mean), nrow = T0)
   
-  df <- rbind(df[df$treatment == 0,], df[df$treatment == 1,])
+  sel <- unlist(lapply(treated_units, function(x,t) ((x - 1)* t + 1) : (x * t), t=t))
+  df <- rbind(df[-sel, ], df[sel, ])
+  #df <- rbind(df[df$treatment == 0,], df[df$treatment == 1,])
   
 
   #now create time and unit dummies
@@ -99,6 +102,7 @@ prepare_data <- function(df, covariates, treatment_time, treated_units)
   result$Y00 <- Y00
   result$Y01 <- Y01
   result$Y10 <- Y10
+  result$Y10_mean <- Y10_mean
   result$n_covariates <- length(covariates)
   
   return(result)
