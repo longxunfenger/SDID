@@ -43,7 +43,7 @@ arma::mat unit_weights(arma::mat &Y00, arma::mat &Y10, int N_treated_units, doub
     arma::mat result(N_units, 1);
     arma::mat treated_weights(N_treated_units, 1);
     result.submat(0, 0, N - 2, 0) = admm_solver(V, dvec, rho, 10000, 1e-8);
-    result.submat(N - 1, 0, N_units - 1, 0) = treated_weights.fill(1/N_treated_units);
+    // result.submat(N - 1, 0, N_units - 1, 0) = treated_weights.fill(1 / N_treated_units);
     
     return result;
     //return unit_weights;
