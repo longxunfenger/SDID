@@ -78,7 +78,8 @@ prepare_data <- function(df, covariates, treatment_time, treated_units)
   Y10 <- t(Y10)
   Y10_mean <- matrix(apply(Y10, 1, mean), nrow = T0)
   
-  sel <- unlist(lapply(treated_units, function(x,t) ((x - 1)* t + 1) : (x * t), t=t))
+  sel <- unlist(lapply(treated_units, function(x,t) ((x - 1) * t + 1) : (x * t),
+  t = T))
   df <- rbind(df[-sel, ], df[sel, ])
   #df <- rbind(df[df$treatment == 0,], df[df$treatment == 1,])
   
